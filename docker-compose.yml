@@ -1,0 +1,21 @@
+version: "3.4"
+services:
+    hideinpixels:
+        container_name: hideinpixels
+        build:
+            context: .
+            dockerfile: ./Dockerfile
+            #extra_hosts:
+            #    - "host.docker.internal:172.17.0.1"
+        #enable hot reloading of api - useful for development - disable in prod
+        #entrypoint: '/start-reload.sh'
+        environment:
+            WORKERS_PER_CORE: 1
+            TIMEOUT: 90
+        ports:
+            - 8001:80
+        expose:
+            - 8001
+        restart: always
+        volumes:
+            - ./app:/code/app
